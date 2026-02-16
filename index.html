@@ -253,7 +253,10 @@
     <!-- Android Modal -->
     <dialog id="android-modal">
         <h3 style="margin-bottom: 0.5rem;">Android Setup</h3>
-        <p style="font-size: 0.9rem; color: var(--dim);">Paste this command into <b>Termux</b>:</p>
+        <p style="font-size: 0.9rem; color: var(--dim); margin-bottom: 1rem;">
+            1. Install <b>Termux</b> from <a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="color: var(--accent);">F-Droid</a>.<br>
+            2. Open Termux and paste this command:
+        </p>
         <code>pkg update && pkg install nodejs-lts git -y && npm install -g openclaw && openclaw onboard</code>
         <button class="btn" style="width: 100%; margin-top: 1rem; justify-content: center; height: auto; padding: 1rem;" onclick="this.closest('dialog').close()">Done</button>
     </dialog>
