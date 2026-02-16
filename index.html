@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Agent — Your Executive AI Team in One Click</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --dim: #a1a1aa;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+            --card-bg: #0f0f12;
+            --border: #27272a;
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Top Nav */
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent-glow);
+            color: #818cf8;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom, #fff 40%, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--dim);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-weight: 400;
+        }
+
+        /* Main Action Card */
+        .download-hub {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            margin-bottom: 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-hub::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 50%);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .hub-content { position: relative; z-index: 1; }
+
+        .hub-content h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 700; }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            padding: 1.5rem;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            text-align: left;
+        }
+
+        .btn span { font-size: 0.8rem; font-weight: 400; opacity: 0.6; }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn.dark {
+            background: #18181b;
+            color: #fff;
+            border: 1px solid #3f3f46;
+        }
+
+        .btn.accent {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+        }
+
+        /* Modal for Android */
+        dialog {
+            background: #18181b;
+            color: #fff;
+            border: 1px solid #3f3f46;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        dialog::backdrop { background: rgba(0,0,0,0.8); }
+
+        code {
+            background: #000;
+            padding: 1rem;
+            border-radius: 8px;
+            display: block;
+            margin: 1rem 0;
+            font-family: monospace;
+            word-break: break-all;
+            border: 1px solid #333;
+        }
+
+        /* Feature Bento Grid */
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            margin-bottom: 8rem;
+        }
+
+        .bento-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: border-color 0.3s;
+        }
+
+        .bento-item:hover { border-color: #3f3f46; }
+
+        .bento-item h3 { font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; }
+        .bento-item p { color: var(--dim); font-size: 1rem; }
+
+        .big { grid-column: span 2; }
+
+        /* Traditional vs Simple */
+        .comparison-section {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .comp-box {
+            padding: 3rem;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .comp-box.highlight {
+            background: linear-gradient(135deg, #1e1b4b, #050505);
+            border-color: var(--accent);
+        }
+
+        .comp-box h4 { font-size: 1rem; text-transform: uppercase; color: var(--dim); letter-spacing: 0.1em; margin-bottom: 2rem; }
+        .comp-box .val { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; line-height: 1; }
+
+        .comp-list { list-style: none; }
+        .comp-list li { margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; font-weight: 500; }
+
+        /* Universal Access */
+        .universal {
+            background: #fff;
+            color: #000;
+            border-radius: 40px;
+            padding: 6rem 4rem;
+            text-align: center;
+            margin-bottom: 8rem;
+        }
+
+        .universal h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.04em; }
+        .universal p { font-size: 1.25rem; color: #52525b; max-width: 500px; margin: 0 auto 4rem; }
+
+        /* Footer */
+        footer {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--dim);
+            font-size: 0.9rem;
+        }
+
+        footer a { color: var(--text); text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 900px) {
+            .btn-group { grid-template-columns: 1fr; }
+            h1 { font-size: 3.5rem; }
+            .bento { grid-template-columns: 1fr; }
+            .big { grid-column: span 1; }
+            .comp-grid { grid-template-columns: 1fr; }
+            .universal h2 { font-size: 2.5rem; }
+            .download-hub { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo"><div class="logo-dot"></div> Simple Agent</div>
+            <div style="font-weight: 600; font-size: 0.9rem; border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 8px;">v2.1 Stable</div>
+        </nav>
+
+        <section class="hero">
+            <span class="badge">Next-Generation Autonomy</span>
+            <h1>Hire an AI team.<br>Under 60 seconds.</h1>
+            <p>The first AI agent infrastructure designed for busy founders. Zero setup. Zero terminal. Just double-click and start shipping.</p>
+            
+            <div class="download-hub">
+                <div class="hub-content">
+                    <h2>Choose your platform</h2>
+                    <p style="color: var(--dim);">Download the installer to initialize your local AI environment.</p>
+                    
+                    <div class="btn-group">
+                        <a href="Install_OpenClaw.command" class="btn">
+                            Mac & Linux
+                            <span>Double-click to start</span>
+                        </a>
+                        <a href="Install_OpenClaw_Windows.bat" class="btn dark">
+                            Windows PC
+                            <span>Run setup instantly</span>
+                        </a>
+                        <button onclick="document.getElementById('android-modal').showModal()" class="btn accent">
+                            Android Phone
+                            <span>Copy & paste setup</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Android Modal -->
+        <dialog id="android-modal">
+            <h3 style="margin-bottom: 0.5rem;">Setup for Android</h3>
+            <p style="font-size: 0.9rem; color: var(--dim);">Open <b>Termux</b> on your phone and paste this command:</p>
+            <code>pkg update && pkg install nodejs-lts git -y && npm install -g openclaw && openclaw onboard</code>
+            <button class="btn dark" style="width: 100%; margin-top: 1rem; text-align: center;" onclick="this.closest('dialog').close()">Got it</button>
+        </dialog>
+
+        <div class="bento">
+            <div class="bento-item big">
+                <h3>Built for Business</h3>
+                <p>Your team comes pre-configured with a CEO, CTO, and Growth Lead. They don't just chat—they execute. Summarize 100+ emails, research competitors, or write code directly from your phone.</p>
+            </div>
+            <div class="bento-item">
+                <h3>Private Memory</h3>
+                <p>Your data stays on your machine. We link your existing files during setup so your AI knows your business from Day 1.</p>
+            </div>
+            <div class="bento-item">
+                <h3>Zero Friction</h3>
+                <p>No terminal. No environment variables. No technical hurdles. If you can double-click, you can run an AI company.</p>
+            </div>
+            <div class="bento-item big">
+                <h3>One Link, Infinite Access</h3>
+                <p>Host the AI on your computer and talk to it from anywhere via WhatsApp or Telegram. It's like having an executive assistant in your pocket 24/7.</p>
+            </div>
+        </div>
+
+        <section class="comparison-section">
+            <div style="text-align: center;">
+                <h2 style="font-size: 3rem; font-weight: 800; letter-spacing: -0.03em;">Why use Simple Agent?</h2>
+                <p style="color: var(--dim); margin-top: 1rem;">We removed the complexity so you can focus on ROI.</p>
+            </div>
+
+            <div class="comp-grid">
+                <div class="comp-box">
+                    <h4>Traditional Method</h4>
+                    <div class="val">60m</div>
+                    <ul class="comp-list">
+                        <li>Manual Node.js Install</li>
+                        <li>Terminal Configuration</li>
+                        <li>Library Dependencies</li>
+                        <li>Manual API Linking</li>
+                    </ul>
+                </div>
+                <div class="comp-box highlight">
+                    <h4 style="color: #818cf8;">Simple Agent</h4>
+                    <div class="val" style="color: #818cf8;">< 1m</div>
+                    <ul class="comp-list">
+                        <li>✅ Double-click Installer</li>
+                        <li>✅ Automated Environment</li>
+                        <li>✅ Pre-trained Business Team</li>
+                        <li>✅ Instant WhatsApp Link</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="universal">
+            <h2>Your AI, Everywhere.</h2>
+            <p>Connect your team to WhatsApp or Telegram during setup and take your company's brain with you on any device.</p>
+            <div style="font-size: 3rem; display: flex; justify-content: center; gap: 3rem;">
+                <span>📱</span>
+                <span>💻</span>
+                <span>💬</span>
+            </div>
+        </section>
+
+        <footer>
+            <div>&copy; 2026 Simple Agent Engine</div>
+            <div>Built by <a href="https://endurxlabs.com">EndurxLabs</a></div>
+        </footer>
+    </div>
+
+</body>
+</html>
